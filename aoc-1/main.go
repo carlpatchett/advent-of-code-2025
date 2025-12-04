@@ -1,16 +1,17 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
+
+	aoc_helpers "github.com/carlpatchett/advent-of-code-2025/inputs"
 )
 
 func main() {
 
-	lines, err := loadInput("inputs.txt")
+	lines, err := aoc_helpers.LoadInputsAsStrings("inputs.txt")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "failed to load inputs:", err)
 		os.Exit(1)
@@ -21,24 +22,6 @@ func main() {
 	dial := Dial{Current: 50}
 	passes := dial.decodeInput(lines)
 	fmt.Println("Total passes:", passes)
-}
-
-func loadInput(path string) ([]string, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	scanner := bufio.NewScanner(f)
-	var lines []string
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	if err := scanner.Err(); err != nil {
-		return nil, err
-	}
-	return lines, nil
 }
 
 type Dial struct {
